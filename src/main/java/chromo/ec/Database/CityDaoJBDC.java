@@ -133,6 +133,8 @@ public class CityDaoJBDC implements CityDao{
                         city.getPopulation());
 
                 s.executeUpdate();
+
+                s.close();
                 return city;
             }else{
                 System.out.println("ID is already present, cannot override\nOr one of the values equals null");
@@ -154,6 +156,7 @@ public class CityDaoJBDC implements CityDao{
         statement.setString(3, district);
         statement.setInt(4, population);
         statement.setInt(5, id);
+
         return statement;
     }
 
@@ -168,6 +171,8 @@ public class CityDaoJBDC implements CityDao{
                 city.getPopulation(),
                 city.getID());
                 s.executeUpdate();
+
+                s.close();
             }else{
                 System.out.println("id not present");
             }
@@ -193,6 +198,7 @@ public class CityDaoJBDC implements CityDao{
         if(city.equals(cityFindById(city.getID()))){
             PreparedStatement s = create_delete(getConnection(), city.getID());
             s.executeUpdate();
+            s.close();
             return 1;
         }
         }catch(NullPointerException e){
